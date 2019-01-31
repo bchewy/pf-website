@@ -1,0 +1,49 @@
+<h4 class="text-center">Edit and update selected event</h4>
+<%= form_for @event do |f| %>
+  <div class="row border border-primary">
+    <div class="col-md-4 m-3">
+      <h5>Current event banner:</h5>
+      <%= image_tag(@event.event_banner.url, class: "img-fluid") %>
+    </div>
+<!--    <div class="col-md-6">-->
+<!--      <h5>Current event game pictures:</h5>-->
+      <%# @event.event_pics_urls.each do |picture| %>
+        <%#= image_tag(picture, class: "img-fluid") %>
+      <%# end %>
+<!--    </div>-->
+  </div>
+  <div class="form-group">
+    <%= f.label :eventID %><span> (Contact admin to change...)</span>
+    <%= f.number_field :eventID, class: 'form-control', readonly: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventName %>
+    <%= f.text_field :eventName, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventAdminEmail %>
+    <%= f.email_field :eventAdminEmail, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventNoOfPpl %>
+    <%= f.text_field :eventNoOfPpl, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventNoTeams %>
+    <%= f.text_field :eventNoTeams, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :gameStatus %>
+    <%= f.select :gameStatus, ['Waiting', 'Ready', 'Not sorted'] %>
+  </div>
+  <!--Attempt to add images to modify -->
+  <div class="form-group">
+    <%= f.label :event_banner %>
+    <%= f.file_field :event_banner %>
+  </div>
+<!--  <div class="form-group">-->
+    <%#= f.label :event_pics %>
+    <%#= f.file_field :event_pics, multiple: true %>
+<!--  </div>-->
+  <%= f.submit "Save changes", class: "btn btn-primary btn-block" %>
+<% end %>

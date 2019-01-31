@@ -1,0 +1,18 @@
+<!--Form for creating a picture object, which is part of an event.. doesn't work rn-->
+<div class="container text-center">
+  <%= form_with(model: [@event, @event.pictures.new], local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :answers %><br>
+      <%= f.text_field :answers, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :hints %><br>
+      <%= f.text_field :hints, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :event_pics %>
+      <%= f.file_field :event_pics, multiple: true %>
+    </div>
+    <%= f.submit "Create Picture", class: "btn btn-primary btn-block" %>
+  <% end %>
+</div>

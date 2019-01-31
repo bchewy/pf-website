@@ -1,0 +1,134 @@
+<%= form_for @event do |f| %>
+  <h4 class="text-center">Viewing event id: <%= @event.id %> and EventGameID <%= @event.eventID %> </h4>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <%= image_tag(@event.event_banner.url, class: "img-fluid mx-auto d-block") %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="text-center">Current event game pictures:</h5>
+      <!-- One event picture goes through the loop here -->
+      <div class="row ">
+        <% @event.pictures.each do |p| %>
+
+          <div class="col m-2">
+            <!--Loop through multiple pictures for single picture object, if any -->
+            <% p.event_pics.each do |x| %>
+              <%= image_tag(x.url, class: "img-fluid h-25 w-25") %>
+            <% end %>
+            <!-- End loop-->
+            <div class="row">
+              <div class="col-md-6 mt-1">
+                <h6>Answer:</h6>
+                <%= p.answers %>
+              </div>
+              <div class="col-md-6 mt-1">
+                <h6>Hint/s:</h6>
+                <%= p.hints %>
+              </div>
+            </div>
+            <%= link_to "Delete Picture", event_picture_path(@event.id, p.id), :confirm => "Are you sure you want to delete this picture?", :method => :delete %>
+
+          </div>
+        <% end %>
+      </div>
+
+      <!--End of loop-->
+    </div>
+  </div>
+  <h5 class="text-center">Teams in this event:</h5>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>ID
+          </th>
+          <th>Team Name</th>
+          <th>Controls</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <% @event.teams.each do |t| %>
+          <tr>
+            <td><%= t.id %></td>
+            <td>
+              <%= t.TeamName %>
+            </td>
+            <td>
+              <!--Button to navigate to team show view here-->
+              <%= link_to "Show Team", event_team_path(@event, t.id) %>
+              <%#= button_to('Delete', t,
+                            method: "delete", remote: true,
+                            data: {confirm: "Are you sure that you wish to delete the team #{t.TeamName}?",
+                                   disable_with: 'loading...'}, class: "btn btn-danger") %>
+              <%#= button_to "Delete Team", event_team_path(t), :method => :delete, data: {confirm: 'Are you sure?'} %>
+
+
+              <%#= link_to "Delete Attachment", project_thread_attachment_path(@attachment.thread.project.id, @attachment.thread.id, @attachment.id), :confirm => "Are you sure you want to delete this attachment?", :method => :delete %>
+              |
+              <%= link_to "Delete Team", event_team_path(t.id, @event.id), :confirm => "Are you sure you want to delete this team?", :method => :delete %>
+
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr class="bg-dark">
+  <h2 class="text-center">Event Information</h2>
+  <div class="form-group">
+    <%= f.label :eventID %><span> (Contact admin to change...)</span>
+    <%= f.number_field :eventID, class: 'form-control', readonly: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventName %>
+    <%= f.text_field :eventName, class: 'form-control', readonly: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventAdminEmail %>
+    <%= f.email_field :eventAdminEmail, class: 'form-control', readonly: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :eventNoOfPpl %>
+    <%= f.text_field :eventNoOfPpl, class: 'form-control', readonly: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :gameStatus %>
+    <%= f.select :gameStatus, ['Waiting', 'Ready', 'Not sorted'], {:disabled => true} %>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%= button_to('Delete', @event,
+                    method: "delete", remote: true,
+                    data: {confirm: "Are you sure that you wish to delete the event #{@event.eventName}?",
+                           disable_with: 'loading...'}, class: "btn btn-block btn-danger") %>
+    </div>
+    <div class="col-md-6">
+      <%= button_to "Edit Event", {:controller => :events, :action => 'edit', :id => @event.id},
+                    :method => :get,
+                    class: "btn btn-block btn-warning" %>
+    </div>
+  </div>
+<% end %>
+
+<h2 class="text-center">Add a picture</h2>
+<hr class="bg-dark">
+
+<%= render 'pictures/form' %>
+<h2 class="text-center">Add a team</h2>
+<hr class="bg-dark">
+
+<%= render 'teams/form' %>
+<!-- Cannot show players in event object because there is no relationship/association,
+instead a button will be used to get to theteam object so players can be added in that
+particular team -->
+<!--<h3 class="text-center">Add a player to team</h3>-->
+<%#= render 'players/form' %>
+

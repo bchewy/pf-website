@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  answers: MyString
+  hints: MyString
+  event_pics: MyString
+  event: one
+
+two:
+  answers: MyString
+  hints: MyString
+  event_pics: MyString
+  event: two

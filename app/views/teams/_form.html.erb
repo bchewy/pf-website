@@ -1,0 +1,10 @@
+<!-- Form for creating a team in an event -->
+<div class="container text-center">
+  <%= form_with(model: [@event, @event.teams.new], local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :TeamName %><br>
+      <%= f.text_field :TeamName, class: 'form-control' %>
+    </div>
+    <%= f.submit "Create Team", class: "btn btn-primary btn-block" %>
+  <% end %>
+</div>

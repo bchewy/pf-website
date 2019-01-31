@@ -1,0 +1,62 @@
+<!-- Create the player object here -->
+<%= form_for Player.new, url: {action: "create"} do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :AndroidID %>
+    <%= f.text_field :AndroidID %>
+  </div>
+  <div class="form-group">
+    <strong>Select a team: </strong>
+    <%#= collection_select(@player, :team_id, Team.all, :id, :name, :prompt => true) %>
+    <!-- or the bottom one works too -->
+    <%= select(@player, "team_id", Team.all.collect {|t| [t.TeamName, t.id]}, selected: params[:team_id]) %>
+  </div>
+  <%= f.submit "Create Player", class: "btn btn-primary btn-block" %>
+
+<% end %>
+
+
+<!-- Try one -->
+<!--<h1>Test</h1>-->
+<%#= form_with(model: @team,url:  new_player_path, local: true) do |f| %>
+<!--  <div class="form-group">-->
+<!--    <%#= f.label :name %><br>-->
+<%#= f.text_field :name, class: 'form-control' %>
+<!--  </div>-->
+<%#= f.submit "Create Player", class: "btn btn-primary btn-block" %>
+<%# end %>
+
+
+<!-- Try two -->
+<%#= form_with(model: [@team, Player.new], local: true) do |f| %>
+<!--  <div class="form-group">-->
+<!--    <%#= f.label :name %><br>-->
+<%#= f.text_field :name, class: 'form-control' %>
+<!--  </div>-->
+<%#= f.submit "Create Player", class: "btn btn-primary btn-block" %>
+<%# end %>
+
+
+
+<!-- Try three -->
+<%#= form_with(model: [@team, @event.team.players.new], local: true) do |f| %>
+<!--  <div class="form-group">-->
+<!--    <%#= f.label :name %><br>-->
+<%#= f.text_field :name, class: 'form-control' %>
+<!--  </div>-->
+<%#= f.submit "Create Player", class: "btn btn-primary btn-block" %>
+<%# end %>
+
+
+<%#= form_with(url: players_url  , local: true) do |f| %>
+<!--  <div class="form-group">-->
+<!--    <%#= f.label :name %><br>-->
+<%#= f.text_field :name, class: 'form-control' %>
+<!--  </div>-->
+<%#= f.submit "Create Player", class: "btn btn-primary btn-block" %>
+<%# end %>
+
+

@@ -1,0 +1,70 @@
+<h1 class="text-center">Events Admin Dashboard</h1>
+<p class="lead text-center"><strong>How to use:</strong><Br> Create a new event and put in the proper event-pics, then
+  use the
+  mobile-app. Everything is inter-connected! </p>
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<br/>
+<br/>
+<br/>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Event Name</th>
+    <th>Event Banner</th>
+    <th>Controls</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @events.each do |event| %>
+
+    <tr>
+      <td><%= event.eventName %></td>
+      <!--Showing event banner -->
+      <td>
+        <%= image_tag(event.event_banner.url, class: "img-fluid") %>
+      </td>
+      <!--end-->
+      <!--Showing of event pictures -->
+<!--      <td>-->
+        <%# @event.event_pictures.each do |f| %>
+<!--          Answer-->
+<!--          <p><%#= f.answer %></p>-->
+<!--          Hint-->
+<!--          <p><%#= f.hint %></p>-->
+        <%# end %>
+<!--      </td>-->
+      <!--      <td>-->
+      <%# event.event_pics_urls.each do |picture| %>
+      <%#= image_tag(picture, class: "img-fluid") %>
+      <%# end %>
+      <!--      </td>-->
+      <!--end-->
+      <td>
+        <%= button_to('Delete', event,
+                      method: "delete", remote: true,
+                      data: {confirm: "Are you sure that you wish to delete the event #{event.eventName}?",
+                             disable_with: 'loading...'}, class: "btn btn-danger") %>
+        <%#= button_to('edit',{:controller => :events, :action => 'edit', :id => event.id },method::post) %>
+        <%= button_to "edit", {:controller => :events, :action => 'edit', :id => event.id},
+                      :method => :get,
+                      class: "btn btn-warning" %>
+        <%= button_to "Details", {:controller => :events, :action => 'show', :id => event.id},
+                      :method => :get,
+                      class: "btn btn-success" %>
+        <%#= link_to "New event picture", new_picture_path %>
+      </td>
+
+
+    </tr>
+
+  <% end %>
+  </tbody>
+
+</table>
+<%= render 'shared/devdebug' %>
+

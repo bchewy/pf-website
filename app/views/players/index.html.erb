@@ -1,0 +1,57 @@
+<h1 class="text-center">Players Admin Dashboard</h1>
+<p class="lead text-center">
+  TODO: All players from different events are shown here.. Search for a particular event!
+</p>
+<%= button_to('Sort players', {:controller => "players", :action => "start_sort"}, method: "get",
+              data: {confirm: "Are you sure you want to sort all players into a team, on firebase?",
+                     disable_with: 'loading...'}, class: "btn btn-info") %>
+<%#= button_to('Sort players', players/start_sort_path ,
+              data: {confirm: "Are you sure you want to sort all players into a team, on firebase?",
+                     disable_with: 'loading...'}, class: "btn btn-info") %>
+<%# if !flash[:notice].blank? %>
+<!--  <div class="alert alert-info">-->
+<%#= flash[:notice] %>
+<!--  </div>-->
+<%# end %>
+<br/>
+<br/>
+<br/>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Player name</th>
+    <!--    <th>Team </th>-->
+    <th>AndroidID</th>
+    <th>Score</th>
+    <th>Controls</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @players.each do |p| %>
+
+    <tr>
+      <td><%= p.name %></td>
+      <!--      <td>@team.name</td>-->
+      <td>
+        <%= p.AndroidID %>
+      </td>
+      <td>
+        <%= p.score %>
+      </td>
+      <td>
+        <%= button_to('Delete', p,
+                      method: "delete", remote: true,
+                      data: {confirm: "Are you sure that you wish to delete the player #{p.name}?",
+                             disable_with: 'loading...'}, class: "btn btn-danger") %>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+
+</table>
+
+<%#= render 'players/sortdebug' %>
+<%= render 'shared/devdebug' %>
+

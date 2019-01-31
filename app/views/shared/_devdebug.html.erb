@@ -1,0 +1,74 @@
+<!--Developer's debug menu at bottom of index page-->
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Developer Debug Menu (click to toggle)
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+
+
+        <div class="container">
+          <h4>Developers debug menu</h4>
+          <h6>RAW JSON</h6>
+          <div class="jumbotron">
+            <%= @json_object.inspect %>
+          </div>
+          <h6>JSON (Event Data)</h6>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>EventID</th>
+              <th>Event Name</th>
+              <th>Admin Contact</th>
+              <th>No of People</th>
+              <th>No of Teams</th>
+              <th>Game Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @json_object.nil? %>
+              <span>the json return is empty</span>
+            <% else %>
+              <% @json_object.each do |key, value| %>
+                <tr>
+                  <td><%= value['eventID'] %></td>
+                  <td><%= value['eventName'] %></td>
+                  <td><%= value['eventAdminEmail'] %></td>
+                  <td><%= value['eventNoOfPpl'] %></td>
+                  <td><%= value['eventNoTeams'] %></td>
+                  <td><%= value['gameStatus'] %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <h6>JSON (Players Data - Temp)</h6>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>AndroidID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @json_object.nil? %>
+              <span>the json return is empty</span>
+            <% else %>
+              <% @json_object.each do |key, value| %>
+                <tr>
+                  <td><%= value %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
